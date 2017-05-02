@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">安卓实践</string>
+    <string name="action_settings">设置</string>
+
+    <string name="edit_message">请输入信息</string>
+    <string name="button_send">发送</string>
+    <string name="title_activity_display_message">显示信息</string>
+    <string name="action_search">搜索</string>
+
+    <string name="title_activity_articles">文章</string>
+    <string name="fragment_go">看文章</string>
+    <string name="text_fragment_headlines">标题</string>
+    <string name="text_fragment_articles">文章内容</string>
+
+    <string name="data">data</string>
+    <string name="saved_high_score_default">20</string>
+    <string name="saved_high_score">high_score</string>
+</resources>
