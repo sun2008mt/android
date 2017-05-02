@@ -47,4 +47,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/intent_dial"
         android:text="@string/intent_location"/>
+
+    <Button
+        android:id="@+id/intent_webpage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intent_location"
+        android:text="@string/intent_webpage"/>
 </RelativeLayout>

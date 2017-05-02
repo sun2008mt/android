@@ -17,8 +17,5 @@ public class ArticleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // 拉伸该 Fragment 的布局
         return inflater.inflate(R.layout.fragment_articles, container, false);
-
-//        return container.findViewById(R.id.article_fragment);
-//        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

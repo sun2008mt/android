@@ -19,4 +19,5 @@
 
     <string name="intent_dial">打电话</string>
     <string name="intent_location">当前位置</string>
+    <string name="intent_webpage">看网页</string>
 </resources>

@@ -58,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //android五中存储方式
+        //1.Shared Preferences
+        // 2.Internal Storage
+        // 3. External Storage
+        // 4. SQLite Database
+        // 5.Network Connection
+
         //SharedPreference 文件保存在/data/data/<package name>/shared_prefs 路径下
         // (如/data/data/com.android.alarmclock/shared_prefs/com.android.text_preferences.xml)
         SharedPreferences preferences = getSharedPreferences(getString(R.string.data), Context.MODE_PRIVATE);
@@ -67,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         //commit是同步方法，apply是异步方法
         edit.commit();
 
+        //internal storage
+        //Internal Storage 把数据存储在设备内部存储器上，存储在/data/data/<package name>/files目录下
+        //Internal storage 是属于应用程序的，文件管理器看不见
+        //External storage 在文件浏览器里是可以看见的  /mnt
+
+        //implicit intent
         //dial
         Button intent_dial = (Button) findViewById(R.id.intent_dial);
         intent_dial.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +103,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(mapIntent);
             }
         });
+
+        //webpage
+        Button intent_webpage = (Button) findViewById(R.id.intent_webpage);
+        intent_webpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri webpage = Uri.parse("http://www.baidu.com");
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                startActivity(webIntent);
+            }
+        });
+
+        //email
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        // The intent does not have a URI, so declare the "text/plain" MIME type
+        emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "email subject");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "email message text");
+//        emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://path/to/email/attachment"));
+
+
     }
 
     @Override
