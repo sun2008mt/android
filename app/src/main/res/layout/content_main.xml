@@ -33,4 +33,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/message"
         android:text="@string/fragment_go"/>
+
+    <Button
+        android:id="@+id/intent_dial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_go"
+        android:text="@string/intent_dial"/>
+
+    <Button
+        android:id="@+id/intent_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intent_dial"
+        android:text="@string/intent_location"/>
 </RelativeLayout>
