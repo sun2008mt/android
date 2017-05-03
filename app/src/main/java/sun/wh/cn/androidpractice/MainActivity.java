@@ -22,9 +22,6 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.List;
 
-import android.provider.CalendarContract;
-import static java.net.Proxy.Type.HTTP;
-
 public class MainActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "cn.wh.sun.MESSAGE";
@@ -142,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 if (isIntentAvailable(MainActivity.this, emailIntent)) {
                     // The intent does not have a URI, so declare the "text/plain" MIME type
-                    emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
+                    //android 6.0 removed HTTP class
+                    emailIntent.setType("text/plain");
                     emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"});
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, "email subject");
                     emailIntent.putExtra(Intent.EXTRA_TEXT, "email message text");
