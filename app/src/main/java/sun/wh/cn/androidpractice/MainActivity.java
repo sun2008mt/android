@@ -3,6 +3,8 @@ package sun.wh.cn.androidpractice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -18,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.List;
 
 import android.provider.CalendarContract;
 import static java.net.Proxy.Type.HTTP;
@@ -87,13 +90,16 @@ public class MainActivity extends AppCompatActivity {
 
         //implicit intent
         //dial
-        Button intent_dial = (Button) findViewById(R.id.intent_dial);
+        final Button intent_dial = (Button) findViewById(R.id.intent_dial);
         intent_dial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Uri tel = Uri.parse("tel:111111111");
                 Intent callIntent = new Intent(Intent.ACTION_DIAL, tel);
-                startActivity(callIntent);
+
+                if (isIntentAvailable(MainActivity.this, callIntent)) {
+                    startActivity(callIntent);
+                }
             }
         });
 
@@ -106,7 +112,10 @@ public class MainActivity extends AppCompatActivity {
                 // Or map point based on latitude/longitude
                 // Uri location = Uri.parse("geo:37.422219,-122.08364?z=14"); // z param is zoom level
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
-                startActivity(mapIntent);
+
+                if (isIntentAvailable(MainActivity.this, mapIntent)) {
+                    startActivity(mapIntent);
+                }
             }
         });
 
@@ -117,7 +126,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Uri webpage = Uri.parse("http://www.baidu.com");
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-                startActivity(webIntent);
+
+                if (isIntentAvailable(MainActivity.this, webIntent)) {
+                    startActivity(webIntent);
+                }
             }
         });
 
@@ -126,13 +138,16 @@ public class MainActivity extends AppCompatActivity {
         intent_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                // The intent does not have a URI, so declare the "text/plain" MIME type
-                emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"});
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "email subject");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "email message text");
+                if (isIntentAvailable(MainActivity.this, emailIntent)) {
+                    // The intent does not have a URI, so declare the "text/plain" MIME type
+                    emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"});
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "email subject");
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, "email message text");
 //        emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://path/to/email/attachment"));
+                }
 
             }
         });
@@ -143,15 +158,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent calendarIntent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
-                Calendar beginTime = Calendar.getInstance();
-                beginTime.set(2012, 0, 19, 7, 30);
-                Calendar endTime = Calendar.getInstance();
-                endTime.set(2012, 0, 19, 10, 30);
-                calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis());
-                calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
-                calendarIntent.putExtra(CalendarContract.Events.TITLE, "Ninja class");
-                calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Secret dojo");
-
+                if (isIntentAvailable(MainActivity.this, calendarIntent)) {
+                    Calendar beginTime = Calendar.getInstance();
+                    beginTime.set(2012, 0, 19, 7, 30);
+                    Calendar endTime = Calendar.getInstance();
+                    endTime.set(2012, 0, 19, 10, 30);
+                    calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis());
+                    calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
+                    calendarIntent.putExtra(CalendarContract.Events.TITLE, "Ninja class");
+                    calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Secret dojo");
+                }
             }
         });
     }
@@ -186,5 +202,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void openSearch() {
         Toast.makeText(this, "opening search", Toast.LENGTH_LONG).show();
+    }
+
+    public boolean isIntentAvailable(Context context, Intent intent) {
+        PackageManager packageManager = context.getPackageManager();
+        List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+
+        if (resolveInfos.size() > 0) {
+            return  true;
+        }
+        return false;
     }
 }
