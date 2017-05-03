@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,11 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Calendar;
+
+import android.provider.CalendarContract;
+import static java.net.Proxy.Type.HTTP;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -116,15 +122,38 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //email
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        // The intent does not have a URI, so declare the "text/plain" MIME type
-        emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"});
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "email subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "email message text");
+        Button intent_email = (Button) findViewById(R.id.intent_email);
+        intent_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                // The intent does not have a URI, so declare the "text/plain" MIME type
+                emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "email subject");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "email message text");
 //        emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://path/to/email/attachment"));
 
+            }
+        });
 
+        //calendar
+        Button intent_calendar = (Button) findViewById(R.id.intent_calendar);
+        intent_calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent calendarIntent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
+                Calendar beginTime = Calendar.getInstance();
+                beginTime.set(2012, 0, 19, 7, 30);
+                Calendar endTime = Calendar.getInstance();
+                endTime.set(2012, 0, 19, 10, 30);
+                calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis());
+                calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
+                calendarIntent.putExtra(CalendarContract.Events.TITLE, "Ninja class");
+                calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Secret dojo");
+
+            }
+        });
     }
 
     @Override

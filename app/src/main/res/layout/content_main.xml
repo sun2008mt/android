@@ -54,4 +54,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/intent_location"
         android:text="@string/intent_webpage"/>
+
+    <Button
+        android:id="@+id/intent_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intent_webpage"
+        android:text="@string/intent_email"/>
+
+    <Button
+        android:id="@+id/intent_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intent_email"
+        android:text="@string/intent_calendar"/>
 </RelativeLayout>

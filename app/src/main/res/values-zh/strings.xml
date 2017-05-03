@@ -20,4 +20,6 @@
     <string name="intent_dial">打电话</string>
     <string name="intent_location">当前位置</string>
     <string name="intent_webpage">看网页</string>
+    <string name="intent_email">发邮件</string>
+    <string name="intent_calendar">看日历</string>
 </resources>
