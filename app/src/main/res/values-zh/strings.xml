@@ -22,4 +22,6 @@
     <string name="intent_webpage">看网页</string>
     <string name="intent_email">发邮件</string>
     <string name="intent_calendar">看日历</string>
+    <string name="intent_share">分享</string>
+    <string name="chooser_title">分享</string>
 </resources>

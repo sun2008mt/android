@@ -168,6 +168,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //share
+        Button intent_share = (Button) findViewById(R.id.intent_share);
+        intent_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri webpage = Uri.parse("http://www.baidu.com");
+                Intent shareIntent = new Intent(Intent.ACTION_VIEW, webpage);
+
+                if (isIntentAvailable(MainActivity.this, shareIntent)) {
+                    // Always use string resources for UI text. This says something like "Share this photo with"
+                    String title = getString(R.string.chooser_title);
+                    // Create and start the chooser
+                    Intent chooser = Intent.createChooser(shareIntent, title);
+                    startActivity(chooser);
+
+                }
+            }
+        });
     }
 
     @Override

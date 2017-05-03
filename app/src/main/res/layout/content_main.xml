@@ -68,4 +68,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/intent_email"
         android:text="@string/intent_calendar"/>
+
+    <Button
+        android:id="@+id/intent_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intent_calendar"
+        android:text="@string/intent_share"/>
 </RelativeLayout>
